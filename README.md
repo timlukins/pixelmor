@@ -16,7 +16,7 @@ Colour Count
 
 Let's see how we can emulate the stock "word-count" of vanilla *text-based* map-reduce - but instead do a "colour-count" across all the pixels in the video.
 
-We can achieve this, and allow scalability, by splitting up the input video into frames, and furthermore each frame into a set of tiles. Then, we can combine all these tiles into a [SequenceFile](http://hadoop.apache.org/docs/current/api/org/apache/hadoop/io/SequenceFile.html) - one of the handier container formats that Hadoop supports for processing lots of smaller files.
+We can achieve this, and allow scalability, by splitting up the input video into frames, followed by each frame into a set of tiles. Then, we can combine all these tiles into a [SequenceFile](http://hadoop.apache.org/docs/current/api/org/apache/hadoop/io/SequenceFile.html) - one of the handier container formats that Hadoop supports for processing lots of smaller files.
 
 I should add at this point that there is indeed a project that extends Hadoop for processing image data: [Hipi](http://hipi.cs.virginia.edu/). This has developed some appealing concepts to support image data transfer and culling, but unfortunately, it is rather languishing in limbo. We also desire more fine grained control over the image data - especially video data - beyond that offered by Hipi's ImageBundle file.
 
@@ -90,13 +90,13 @@ With entries such as:
 
 As an example, let's use a freely available video constructed form a sequence captured via a construction-site web-cam (part of a previous project I helped set up at the University of Edinburgh).
 
-()[http://homepages.inf.ed.ac.uk/rbf/TIMELAPSEVIDEOS/]
+(ttp://homepages.inf.ed.ac.uk/rbf/TIMELAPSEVIDEOS/)[http://homepages.inf.ed.ac.uk/rbf/TIMELAPSEVIDEOS/]
 
 Let's download one of the unmodified videos under the "Traditional Approach" - for example the "Corinthian" camera .AVI format video of 532 frames.
 
 ![Example video](images/video_shot.png) 
 
-We can then use ffmpeg to first split the video into a folder called frames. We then further split those into 64x64 images tiles (stored in a similarly named directory), before combining all of the individual tiles into a single data.tar file using this handy *tar-to-seq* command which may be downloaded from here, unpacked, and placed somewhere ready for Java to run - ()[http://stuartsierra.com/2008/04/24/a-million-little-files]
+We can then use ffmpeg to first split the video into a folder called frames. We then further split those into 64x64 images tiles (stored in a similarly named directory), before combining all of the individual tiles into a single data.tar file using this handy *tar-to-seq* command which may be downloaded from here, unpacked, and placed somewhere ready for Java to run - (http://stuartsierra.com/2008/04/24/a-million-little-files)[http://stuartsierra.com/2008/04/24/a-million-little-files].
 
 This will result in 42560 tiles and a sequence file of 214MB, so may take a while…
 
