@@ -3,13 +3,13 @@ Pixelmòr
 
 _"Big Pixel Data" with Hadoop/Python/OpenCV_
 
-This is an article written to try and understand the current state-of-the-art in large scale image/video processing. It forms a set of tutorials that will perhaps help (or inspire) others, or maybe even grow into something more... 
+This is an article written to try and understand the current state-of-the-art in large scale image/video processing. It (ultimately?) forms a set of tutorials that will perhaps help (or inspire) others, or maybe even grow into something more... 
 
 I'll start with the simplest case of what we can achieve with an established toolset - namely some Hadoop and a bit of OpenCV/Python. If you simply want to leverage an existing framework to grind image/video data, well, here's how.
 
 However, this rather more importantly shows up just what is deficient in such an approach. Particularly in the unique nature of problems presented by image/video data, and the end use-cases for it. Naturally the question emerges as to what would be a more principled way to process and analyse massive amounts of pixels (rather than characters)?
 
-This all assumes a certain familiarity with Hadoop based technologies, python and a fair smattering of computer vision. I myself am by not means an expert - even though these notes stem from a presentation I did some [while ago](present/anc09_cloudy_vision.pdf). The intention however is to be *pragmatic* rather than overly too bogged down in theory - except when it matters!
+This all assumes a certain familiarity with Hadoop based technologies, python and a fair smattering of computer vision. I myself am by no means an expert - even though these notes stem from a presentation I did [a while ago in 2009](present/anc09_cloudy_vision.pdf). The intention however is to be *pragmatic* about how to go about this, to see what works for the sort of task we need to solve.
 
 Colour Count
 ------------
@@ -26,7 +26,7 @@ To keep things simple, we can process the data following the paradigm of [Hadoop
 
 Again, it should be noted there is a more full fledged python solution to low-level Hadoop programming using [PyDoop](http://pydoop.sourceforge.net/docs/index.html) which provides a map-reduce and HDFS API for object-orientated programming. This is extremely useful, but somewhat over-kill in this initial example. We'll come back to it later.
 
-The rest of the article is thus structured as a complete walk through of how to combine the simplest core technologies (sequence files, Hadoop streaming, python, opencv) into a working example of video processing.
+The rest of the chapter is thus structured as a complete walk through of how to combine the simplest core technologies (sequence files, Hadoop streaming, python, opencv) into a working example of video processing.
 
 ### Environment
 
@@ -89,9 +89,9 @@ With entries such as:
 ### Data Split and Load
 
 As an example, let's use a freely available video constructed form a sequence captured via a construction-site web-cam (part of a previous project I helped set up at the University of Edinburgh).
-```
-(http://homepages.inf.ed.ac.uk/rbf/TIMELAPSEVIDEOS/)[http://homepages.inf.ed.ac.uk/rbf/TIMELAPSEVIDEOS/]
-```
+
+(`http://homepages.inf.ed.ac.uk/rbf/TIMELAPSEVIDEOS/`)[http://homepages.inf.ed.ac.uk/rbf/TIMELAPSEVIDEOS/]
+
 Let's download one of the unmodified videos under the "Traditional Approach" - for example the "Corinthian" camera .AVI format video of 532 frames.
 
 ![Example video](images/video_shot.png) 
@@ -254,5 +254,5 @@ Furthermore, we have no inherent representation of scale. Indeed the size of the
 
 Finally, our attempt to then "do something" with the result of the data proves rather contrived. If anything, we have done the "Big Data" part, but not the "Data Science" to offer up true insight and value (although it is a nice example of a colour histogram!). Many of the difficult high-level tasks attempted from video data: object recognition, segmentation, 3D reconstruction, etc. are not really catered for in this (or any existing) framework, and would still required a great deal of effort to develop from the bottom-up.
 
-This is then then overarching theme for further investigation in the next section...
+This is then then overarching theme for further investigation in the next chapter...
 
