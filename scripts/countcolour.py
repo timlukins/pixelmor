@@ -14,10 +14,10 @@ def mapper(key, value):
   cv.Split(hsv, hue, None, None, None)
   # Calculate colour (hue) histogram...
   hue_bins = 180 
-  hue_range = [0,180] # nb. opencv hue range
+  hue_range = [0,180] # n.b. opencv hue range
   hist = cv.CreateHist([hue_bins], cv.CV_HIST_ARRAY, [hue_range], 1) 
   cv.CalcHist([hue],hist,0,None)
-  # Yeild count of colour... 
+  # Yield count of colour... 
   for h in range(hue_bins):
     yield int(h),cv.QueryHistValue_1D(hist,h) 
 
