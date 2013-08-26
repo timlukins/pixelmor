@@ -1,7 +1,7 @@
 Pixelmòr
 =========
 
-"Big Pixel Data" with Hadoop/Python/OpenCV
+_"Big Pixel Data" with Hadoop/Python/OpenCV_
 
 This is an article written to try and understand the current state-of-the-art in large scale image/video processing. It forms a set of tutorials that will perhaps help (or inspire) others, or maybe even grow into something more... 
 
@@ -9,12 +9,12 @@ I'll start with the simplest case of what we can achieve with an established too
 
 However, this rather more importantly shows up just what is deficient in such an approach. Particularly in the unique nature of problems presented by image/video data, and the end use-cases for it. Naturally the question emerges as to what would be a more principled way to process and analyse massive amounts of pixels (rather than characters)?
 
-This all assumes a certain familiarity with Hadoop based technologies, pythong and a fair smattering of computer vision. I myself am by not means an expert - even though these notes stem from a presentation I did some while ago [here](present/anc09_cloudy_vision.pdf). The intention however is to be *pragmatic* rather than overly too bogged down in theory - except when it matters!
+This all assumes a certain familiarity with Hadoop based technologies, python and a fair smattering of computer vision. I myself am by not means an expert - even though these notes stem from a presentation I did some [while ago](present/anc09_cloudy_vision.pdf). The intention however is to be *pragmatic* rather than overly too bogged down in theory - except when it matters!
 
 Colour Count
 ------------
 
-Let's see how we can emulate the stock "word-count"of vanilla *text-based* map-reduce - but instead do a "colour-count" across all the pixels in the video.
+Let's see how we can emulate the stock "word-count" of vanilla *text-based* map-reduce - but instead do a "colour-count" across all the pixels in the video.
 
 We can achieve this, and allow scalability, by splitting up the input video into frames, and furthermore each frame into a set of tiles. Then, we can combine all these tiles into a ["SequenceFile"](http://hadoop.apache.org/docs/current/api/org/apache/hadoop/io/SequenceFile.html) - one of the handier container formats that Hadoop supports for processing lots of smaller files.
 
@@ -89,14 +89,14 @@ With entries such as:
 ### Data Split and Load
 
 As an example, let's use a freely available video constructed form a sequence captured via a construction-site web-cam (part of a previous project I helped set up at the University of Edinburgh).
-
-	http://homepages.inf.ed.ac.uk/rbf/TIMELAPSEVIDEOS/
-
+```
+(http://homepages.inf.ed.ac.uk/rbf/TIMELAPSEVIDEOS/)[http://homepages.inf.ed.ac.uk/rbf/TIMELAPSEVIDEOS/]
+```
 Let's download one of the unmodified videos under the "Traditional Approach" - for example the "Corinthian" camera .AVI format video of 532 frames.
 
 ![Example video](images/video_shot.png) 
 
-We can then use ffmpeg to first split the video into a folder called frames. We then further split those into 64x64 images tiles (stored in a similarly named directory), before combining all of the individual tiles into a single data.tar file using this handy *tar-to-seq* command which may be downloaded from here, unpacked, and placed somewhere ready for Java to run - (Download tar-to-seq)[http://stuartsierra.com/2008/04/24/a-million-little-files]
+We can then use ffmpeg to first split the video into a folder called frames. We then further split those into 64x64 images tiles (stored in a similarly named directory), before combining all of the individual tiles into a single data.tar file using this handy *tar-to-seq* command which may be downloaded from here, unpacked, and placed somewhere ready for Java to run - ()[http://stuartsierra.com/2008/04/24/a-million-little-files]
 
 This will result in 42560 tiles and a sequence file of 214MB, so may take a while…
 
