@@ -1,7 +1,18 @@
 Pixelmòr
 =========
-
 _"Big Pixel Data" with Hadoop/Python/OpenCV_
+
+Table of Contents
+-----------------
+
+**[Introduction](#introduction)**
+**[Colour Counting](#colour-count)**
+**[Stereo Reconstruction][#stereo-reconstruction)**
+
+***
+
+Introduction
+------------
 
 This is an article written to try and understand the current state-of-the-art in large scale image/video processing. It (ultimately?) forms a set of tutorials that will perhaps help (or inspire) others, or maybe even grow into something more... 
 
@@ -9,10 +20,18 @@ I'll start with the simplest case of what we can achieve with an established too
 
 However, this rather more importantly shows up just what is deficient in such an approach. Particularly in the unique nature of problems presented by image/video data, and the end use-cases for it. Naturally the question emerges as to what would be a more principled way to process and analyse massive amounts of pixels (rather than characters)?
 
-This all assumes a certain familiarity with Hadoop based technologies, python and a fair smattering of computer vision. I myself am by no means an expert - even though these notes stem from a presentation I did [a while ago in 2009](present/anc09_cloudy_vision.pdf). The intention however is to be *pragmatic* about how to go about this, to see what works for the sort of task we need to solve.
+So I will then go on to show... 
 
-Colour Count
-------------
+The layout of this article consequently follows as a sequence of tutorials which I've writtn up as I go. 
+
+This all assumes a certain familiarity with Hadoop based technologies, python and a fair smattering of computer vision. I myself am by no means an expert - even though these notes stem from an idea/presentation [from a while ago in 2009](present/anc09_cloudy_vision.pdf). 
+
+The intention however is to be *pragmatic* about how to go about this, to see what works for the sort of task we need to solve.
+
+***
+
+Colour Counting
+---------------
 
 Let's see how we can emulate the stock "word-count" of vanilla *text-based* map-reduce - but instead do a "colour-count" across all the pixels in the video.
 
@@ -90,7 +109,7 @@ With entries such as:
 
 As an example, let's use a freely available video constructed form a sequence captured via a construction-site web-cam (part of a previous project I helped set up at the University of Edinburgh).
 
-(ttp://homepages.inf.ed.ac.uk/rbf/TIMELAPSEVIDEOS/)[http://homepages.inf.ed.ac.uk/rbf/TIMELAPSEVIDEOS/]
+[http://homepages.inf.ed.ac.uk/rbf/TIMELAPSEVIDEOS/]
 
 Let's download one of the unmodified videos under the "Traditional Approach" - for example the "Corinthian" camera .AVI format video of 532 frames.
 
@@ -240,7 +259,7 @@ What can we tell from this? Well, it would seem there is a predominance of yello
 
 Taking this further we could model the distribution centred around the yellow peak - and so try and extract regions of highly coloured yellow as a sign to the presence in the scene of equipment or people. The problem then is how to determine if such pixels belong to the same coloured object (i.e. are spatial neighbours) and at what level there is a sufficient number of them to be deemed significant, given the true scale of the object in question.
 
-#### Conclusion
+#### Conclusion: Are we missing a trick?
 
 With these first steps we have performed the simplest form of distributed processing on a video using a combination of pure Hadoop streaming, python and OpenCV.
 
@@ -248,11 +267,19 @@ We have shown how this is relatively straightforward, once the input video data 
 
 The following processing of the image bytes is likewise straightforward, but in retrospect there is some significant loss of information with regards to *where* this data was located in the original file (e.g. the timestamp). Such information is recoverable - from the key value of the original filename used in the sequence file - but the fact remains, we manage to lose the spatial and temporal index of the pixel within the wider context of the scene…
 
-This is fine for processing occurring at the level of the individual, anonymised pixel - but for any "real" visual processing we would ideally be able to aggregate information to resolve higher level structure and properties of the scene.
+This is fine for processing occurring at the level of the individual, anonymised pixel - but for any visual processing we would ideally be able to aggregate information to resolve higher level structure and properties of the scene.
 
-Furthermore, we have no inherent representation of scale. Indeed the size of the tiles we create (64x64) is arbitrary and can have a huge bearing on later high-level processing. More recent, hierarchical models for image features extraction look to move (quite literally) beyond global "bags of features" to holistic pyramidal/scale-space representations.
+Furthermore, we have no inherent representation of scale. Indeed the size of the tiles we create (64x64) is arbitrary and can have a huge bearing on later high-level processing. More recent, hierarchical models for image features extraction look to move (quite literally) beyond global _bags of features_ to holistic pyramidal/scale-space representations.
 
-Finally, our attempt to then "do something" with the result of the data proves rather contrived. If anything, we have done the "Big Data" part, but not the "Data Science" to offer up true insight and value (although it is a nice example of a colour histogram!). Many of the difficult high-level tasks attempted from video data: object recognition, segmentation, 3D reconstruction, etc. are not really catered for in this (or any existing) framework, and would still required a great deal of effort to develop from the bottom-up.
+Finally, our attempt to then "do something" with the result of the data proves rather contrived. If anything, we have done the _Big Data_ part, but not the _Data Science_ to offer up true insight and value (although it is a nice example of a colour histogram!). Many of the difficult high-level tasks attempted from video data: object recognition, segmentation, 3D reconstruction, etc. are not really catered for in this (or any existing) framework, and would still required a great deal of effort to develop from the bottom-up.
 
 This is then then overarching theme for further investigation in the next chapter...
+
+***
+
+Stereo Reconstruction 
+---------------------
+
+Earlier we mentioned PyDoop as something we'll come back to. 
+
 
