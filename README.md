@@ -6,8 +6,12 @@ Table of Contents
 -----------------
 
 **[Introduction](#introduction)**
-**[Colour Counting](#colour-count)**
-**[Stereo Reconstruction][#stereo-reconstruction)**
+
+**[Colour Counting](#colour-counting)**
+
+**[Pixel Slicing](#pixel-slicing)**
+
+**[Stereo Reconstruction](#stereo-reconstruction)**
 
 ***
 
@@ -115,7 +119,7 @@ Let's download one of the unmodified videos under the "Traditional Approach" - f
 
 ![Example video](images/video_shot.png) 
 
-We can then use ffmpeg to first split the video into a folder called frames. We then further split those into 64x64 images tiles (stored in a similarly named directory), before combining all of the individual tiles into a single data.tar file using this handy *tar-to-seq* command which may be downloaded from here, unpacked, and placed somewhere ready for Java to run - (http://stuartsierra.com/2008/04/24/a-million-little-files)[http://stuartsierra.com/2008/04/24/a-million-little-files].
+We can then use ffmpeg to first split the video into a folder called frames. We then further split those into 64x64 images tiles (stored in a similarly named directory), before combining all of the individual tiles into a single data.tar file using this handy *tar-to-seq* command which may be downloaded from here, unpacked, and placed somewhere ready for Java to run - [http://stuartsierra.com/2008/04/24/a-million-little-files].
 
 This will result in 42560 tiles and a sequence file of 214MB, so may take a while…
 
@@ -277,9 +281,15 @@ This is then then overarching theme for further investigation in the next chapte
 
 ***
 
+Pixel Slicing 
+-------------
+
+Earlier we mentioned PyDoop as something we'll come back to. 
+
+***
+
 Stereo Reconstruction 
 ---------------------
 
-Earlier we mentioned PyDoop as something we'll come back to. 
 
 
